@@ -1,7 +1,7 @@
 ## SI 364 - Winter 2018
 ## HW 3
 ## Joshua Walker
-## Worked with Vinh Luong
+## Worked with Vinh Luong and Rachel Chang
 
 ####################
 ## Import statements
