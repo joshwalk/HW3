@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>The tweet with the most non-whitespace characters:</p>
+<p>"{{tweet}}"</p>
+<p>posted by <b>{{user}}</b> -- <i>{{display_name}}</i></p>
+
+{% if not tweet %}
+    There are no saved tweets to show.
+{% endif %}
+
+{% endblock %}
