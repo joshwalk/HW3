@@ -58,12 +58,12 @@ db = SQLAlchemy(app) # For database use
 
 class Tweet(db.Model):
     __tablename__ = "Tweets"
-    tweet_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(280))
     user_id = db.Column(db.Integer,db.ForeignKey("Users.user_id"))
 
     def __repr(self):
-        return "Tweet: {} (ID: {})".forma(self.text,self.tweet_id)
+        return "Tweet: {} (ID: {})".forma(self.text,self.id)
 
 
 # - User
@@ -191,7 +191,7 @@ def index():
             tweet = Tweet(text=tweet, user_id=user.user_id)
             db.session.add(tweet)
             db.session.commit()
-            tweet_id = tweet.tweet_id
+            id = tweet.id
             return redirect(url_for('index'))
 
     errors = [v for v in form.errors.values()]
@@ -222,9 +222,9 @@ def see_all_users():
 @app.route('/longest_tweet')
 def get_longest_tweet():
     tweets = Tweet.query.all()
-    tweet_list = [(tweet.text.replace(" ",""), tweet.user_id, tweet.tweet_id) for tweet in tweets]
+    tweet_list = [(tweet.text.replace(" ",""), tweet.user_id, tweet.id) for tweet in tweets]
     tweet_list = sorted(tweet_list, key=lambda x:len(x[0]), reverse=True)
-    longest_tweet = Tweet.query.filter_by(tweet_id=tweet_list[0][2]).first().text
+    longest_tweet = Tweet.query.filter_by(id=tweet_list[0][2]).first().text
     user = User.query.filter_by(user_id = tweet_list[0][1]).first().username
     display_name = User.query.filter_by(user_id = tweet_list[0][1]).first().display_name
     return render_template("longest_tweet.html", tweet=longest_tweet, user=user, display_name=display_name)
